@@ -105,7 +105,6 @@ export const findCountry = ({lat, lng}) => async (dispatch) => {
     if (resData.results[0].components["_type"] === "body_of_water") {
         return
     }
-    console.log(resData)
     const isoCountry = resData.results[0].components['ISO_3166-1_alpha-2']
     const name = resData.results[0].components.country
 

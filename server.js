@@ -1,5 +1,6 @@
 const express = require('express');
 const app = express();
+const path = require('path');
 const dotenv = require('dotenv');
 const opencage = require('opencage-api-client');
 dotenv.config();
@@ -16,4 +17,8 @@ app.get('/geocode', (req, res) => {
         res.send(error)
         console.log('error', error.message);
       });
+});
+
+app.get('/*', (req, res) => {
+  res.sendFile(path.join(__dirname, 'build', 'index.html'));
 });
