@@ -19,6 +19,8 @@ app.get('/geocode', (req, res) => {
       });
 });
 
+const root = require('path').join(__dirname, 'build')
+app.use(express.static(root));
 app.get('/*', (req, res) => {
-  res.sendFile(path.join(__dirname, 'build', 'index.html'));
+  res.sendFile(('index.html', { root }));
 });
