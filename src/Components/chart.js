@@ -34,7 +34,7 @@ const BarChart = (props) => {
                     borderWidth={1}
                     borderRadius={2}
                     borderColor={{ from: 'color', modifiers: [ [ 'darker', 1.6 ] ] }}
-                    axisTop={props.width !== 275 ? { tickSize: 0, tickPadding: 5, tickRotation: 0, tickValues: [50, 200, 400, 600]} : null }
+                    axisTop={props.width < 350 ? { tickSize: 0, tickPadding: 5, tickRotation: 0, tickValues: [50, 200, 400, 600]} : null }
                     axisRight={null}
                     axisBottom={null}
                     axisLeft={{tickSize: 0, tickPadding: 10, tickRotation: 45}}
