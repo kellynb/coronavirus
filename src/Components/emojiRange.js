@@ -1,6 +1,8 @@
 
 import React from 'react';
 import { Box, Typography } from '@material-ui/core';
+import useMediaQuery from '@material-ui/core/useMediaQuery';
+import { useTheme } from '@material-ui/core/styles';
 import Slider from '@material-ui/core/Slider';
 
 import{ emojiLogic, emojiScale, emojiShow } from '../emojiLogic';
@@ -48,7 +50,7 @@ const EmojiRange = (props) => {
   };
 
     return (
-        <Box width={400}>
+        <Box width={props.width}>
             <Slider
                 value={value}
                 step={25}

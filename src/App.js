@@ -2,6 +2,8 @@ import React, {useEffect, useRef} from 'react';
 import {useDispatch, useSelector} from 'react-redux';
 
 import { Box, Grid, Container, Typography } from '@material-ui/core';
+import useMediaQuery from '@material-ui/core/useMediaQuery';
+import { useTheme } from '@material-ui/core/styles';
 
 import GoogleMapReact from 'google-map-react';
 
@@ -36,8 +38,11 @@ function App() {
   });
 
  const prevVirusYes = prevVirusRef.current;
- 
 
+ const theme = useTheme();
+ const matches = useMediaQuery(theme.breakpoints.down('sm'));
+ const width = matches ? 300 : 375
+ 
  return (
     
    <Container >
@@ -83,6 +88,7 @@ function App() {
             <Box mt={1} mb={4}>
               { prevVirusYes !== virusYes ?
                 < EmojiRange 
+                  width={width}
                   country= {currentCountry}
                   world = {worldData}
                 />
@@ -90,7 +96,7 @@ function App() {
                 null
               }
             </Box>
-            <Box align="center" mt={0.5} width={375} mb={4}>
+            <Box align="center" mt={0.5} width={width} mb={4}>
               <Table/>
             </Box>
           </Box>   
