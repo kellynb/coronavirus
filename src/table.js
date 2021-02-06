@@ -8,7 +8,7 @@ import { Box, Typography } from '@material-ui/core';
 import TwoDayCases from './Components/twoDayTot';
 import YearToDate from './Components/yearToDate';
 
-export default function ToggleButtons() {
+export default function ToggleButtons(props) {
   const [alignment, setAlignment] = useState('left');
 
   const handleAlignment = (event, newAlignment) => {
@@ -34,7 +34,7 @@ export default function ToggleButtons() {
         </ToggleButton>
       </ToggleButtonGroup>
       <Box borderTop={1} mt={0.5} borderColor="secondary.main">
-        { alignment === "left" ? < YearToDate /> : < TwoDayCases />}
+        { alignment === "left" ? < YearToDate width={props.width}/> : < TwoDayCases />}
       </Box>
     </div>
   );

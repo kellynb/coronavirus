@@ -6,7 +6,7 @@ import { Box, Typography } from '@material-ui/core';
 
 const BarChart = (props) => {
     return (
-        <Box mt={1} height={200} width={350}>
+        <Box mt={1} height={200} width={props.width}>
             <Box>
                 <Typography variant='body1' align='center'>Deaths per Million</Typography>
                 <Typography variant='body2' align='center'>Country vs World</Typography>
@@ -34,7 +34,7 @@ const BarChart = (props) => {
                     borderWidth={1}
                     borderRadius={2}
                     borderColor={{ from: 'color', modifiers: [ [ 'darker', 1.6 ] ] }}
-                    axisTop={{ tickSize: 0, tickPadding: 5, tickRotation: 0, tickValues: [50, 200, 400, 600]}}
+                    axisTop={props.width !== 275 ? { tickSize: 0, tickPadding: 5, tickRotation: 0, tickValues: [50, 200, 400, 600]} : null }
                     axisRight={null}
                     axisBottom={null}
                     axisLeft={{tickSize: 0, tickPadding: 10, tickRotation: 45}}

@@ -40,8 +40,10 @@ function App() {
  const prevVirusYes = prevVirusRef.current;
 
  const theme = useTheme();
- const matches = useMediaQuery(theme.breakpoints.down('sm'));
- const width = matches ? 300 : 375
+ const xsMatch = useMediaQuery(theme.breakpoints.up('xs'))
+ const smMatch = useMediaQuery(theme.breakpoints.down('sm'))
+ const pWidth = smMatch ? xsMatch ? 350 : 300 : 500
+ const comWidth = smMatch ? xsMatch ? 350 : 275 : 400
  
  return (
     
@@ -81,14 +83,14 @@ function App() {
             :
             null  
           } 
-          <Box width={500} display="flex" flexDirection = "column" alignItems="center">
+          <Box width={pWidth} display="flex" flexDirection = "column" alignItems="center">
             <Box >
               <Typography variant='h4' align='center'>{name}</Typography>
             </Box>
             <Box mt={1} mb={4}>
               { prevVirusYes !== virusYes ?
                 < EmojiRange 
-                  width={width}
+                  width={comWidth}
                   country= {currentCountry}
                   world = {worldData}
                 />
@@ -96,8 +98,8 @@ function App() {
                 null
               }
             </Box>
-            <Box align="center" mt={0.5} width={width} mb={4}>
-              <Table/>
+            <Box align="center" mt={0.5} width={"auto"} mb={4}>
+              <Table width={comWidth}/>
             </Box>
           </Box>   
         </Grid>

@@ -5,7 +5,7 @@ import { Box, Typography } from '@material-ui/core';
 
 import Chart from './chart';
 
-const YearToDate = () => {
+const YearToDate = (props) => {
 
     const currentCountry = useSelector(state => state.currentLocation);
     const worldData =  useSelector(state => state.globalStats)
@@ -36,7 +36,7 @@ const YearToDate = () => {
                             </Box>
                         </Box>
                     </Box>
-                    < Chart country = {currentCountry.name} countryDeaths = {virusToday.deathsPerOneMillion} globalDeaths = {worldData.deathsPerMill} />
+                    < Chart width = {props.width} country = {currentCountry.name} countryDeaths = {virusToday.deathsPerOneMillion} globalDeaths = {worldData.deathsPerMill} />
                 </div>
                 :
                 null

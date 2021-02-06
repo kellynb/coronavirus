@@ -9,6 +9,15 @@ const theme = createMuiTheme({
         main: '#e0e0e0',
       },
     },
+    breakpoints: {
+      values: {
+        xs: 450,
+        sm: 600,
+        md: 960,
+        lg: 1280,
+        xl: 1920,
+      },
+    },
     typography: {
         fontFamily: [
             'Roboto Slab', 
@@ -50,5 +59,12 @@ const theme = createMuiTheme({
       }
     }
   });
+
+  theme.typography.h2 = {
+    fontSize: '3.75em',
+    [theme.breakpoints.down('sm')]: {
+      fontSize:'2.75em',
+    }
+   }
 
   export default theme;

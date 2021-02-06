@@ -1,8 +1,6 @@
 
 import React from 'react';
 import { Box, Typography } from '@material-ui/core';
-import useMediaQuery from '@material-ui/core/useMediaQuery';
-import { useTheme } from '@material-ui/core/styles';
 import Slider from '@material-ui/core/Slider';
 
 import{ emojiLogic, emojiScale, emojiShow } from '../emojiLogic';
