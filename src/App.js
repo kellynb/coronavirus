@@ -43,7 +43,7 @@ function App() {
  const xsMatch = useMediaQuery(theme.breakpoints.up('xs'))
  const smMatch = useMediaQuery(theme.breakpoints.down('sm'))
  const pWidth = smMatch ? xsMatch ? 350 : 300 : 500
- const comWidth = smMatch ? xsMatch ? 350 : 275 : 400
+ const comWidth = smMatch ? xsMatch ? 350 : 250 : 400
  
  return (
     
