@@ -1,89 +1,64 @@
+import {
+  getUserLocation,
+  getCountries,
+  getCountryData,
+  getYesterdayGlobalData,
+} from "../endpoints";
+
 export const initialData = () => async (dispatch) => {
-  const firstRes = await fetch("https://ipapi.co/json/");
-  const firstData = await firstRes.json();
+  try {
+    dispatch({ type: "IS_LOADING_INITIAL_DATA" });
+    const user = await getUserLocation();
+    dispatch({
+      type: "CURRENT_LOCATION",
+      payload: user,
+    });
+    const countries = await getCountries();
+    dispatch({
+      type: "ADD_COUNTRIES",
+      payload: countries,
+    });
+    const countryTodayData = await getCountryData(user.country, false);
 
-  dispatch({
-    type: "CURRENT_LOCATION",
-    payload: firstData,
-  });
+    if (countryTodayData === "NO_COUNTRY_LOCATION") {
+      return dispatch({ type: "NO_COUNTRY_LOCATION" });
+    }
+    dispatch({
+      type: "LOCATION_TODAY_VIRUS",
+      payload: countryTodayData,
+    });
 
-  const secRes = await fetch("https://corona.lmao.ninja/v2/countries");
-  console.log(secRes, "secRes");
-  const secData = await secRes.json();
-  const countries = {};
+    const countryYestedayData = await getCountryData(user.country, true);
+    if (countryTodayData === "NO_COUNTRY_LOCATION") {
+      return dispatch({ type: "NO_COUNTRY_LOCATION" });
+    }
+    dispatch({
+      type: "LOCATION_YEST_VIRUS",
+      payload: countryYestedayData,
+    });
 
-  secData.forEach((country) => {
-    const newCountry = (countries[country.ISO2] = {});
-    newCountry["Slug"] = country.ISO2;
-    newCountry["Name"] = country.Country;
-  });
+    const finalCountryData = {
+      country: user.country,
+      virusToday: countryTodayData,
+      virusYes: countryYestedayData,
+    };
 
-  dispatch({
-    type: "ADD_COUNTRIES",
-    payload: countries,
-  });
+    dispatch({
+      type: "UPDATE_COUNTRY",
+      payload: finalCountryData,
+    });
+    const globalYesterdayData = await getYesterdayGlobalData();
 
-  const queryObj = firstData.country;
-  // get virus stats for a country
-  dispatch(getVirusData(queryObj));
-  // get virus stats for the globe
-  dispatch(getGlobal());
-};
+    dispatch({
+      type: "GLOBAL_STATS",
+      payload: globalYesterdayData,
+    });
 
-export const getVirusData = (info) => async (dispatch) => {
-  const todayRes = await fetch(
-    `https://corona.lmao.ninja/v2/countries/${info}?yesterday=false&strict=true&query`
-  );
-  const todayData = await todayRes.json();
-
-  if ("message" in todayData) {
-    return;
+    return dispatch({ type: "HAS_LOADED_INTIAL_DATA" });
+  } catch (e) {
+    console.log(e);
+    return dispatch({ type: "APP_ERROR" });
   }
-
-  const todayObj = {
-    cases: todayData.cases,
-    deaths: todayData.deaths,
-    todayCases: todayData.todayCases,
-    todayDeaths: todayData.todayDeaths,
-    population: todayData.population,
-    casesPerOneMillion: todayData.casesPerOneMillion,
-    deathsPerOneMillion: todayData.deathsPerOneMillion,
-  };
-
-  dispatch({
-    type: "LOCATION_TODAY_VIRUS",
-    payload: todayObj,
-  });
-
-  const yestRes = await fetch(
-    `https://corona.lmao.ninja/v2/countries/${info}?yesterday=true&strict=true&query`
-  );
-  const yestData = await yestRes.json();
-
-  const yestObj = {
-    cases: yestData.cases,
-    deaths: yestData.deaths,
-    todayCases: yestData.todayCases,
-    todayDeaths: yestData.todayDeaths,
-    casesPerOneMillion: todayData.casesPerOneMillion,
-    deathsPerOneMillion: todayData.deathsPerOneMillion,
-  };
-
-  dispatch({
-    type: "LOCATION_YEST_VIRUS",
-    payload: yestObj,
-  });
-
-  const finalObj = {
-    country: info,
-    virusToday: todayObj,
-    virusYes: yestObj,
-  };
-
-  dispatch({
-    type: "UPDATE_COUNTRY",
-    payload: finalObj,
-  });
 };
 
 export const findCountry =
@@ -121,22 +96,6 @@ export const findCountry =
       type: "CURRENT_LOCATION",
       payload: payload,
     });
-    // get country stats
-    dispatch(getVirusData(isoCountry));
+    // // get country stats
+    // dispatch(getCountryVirusData(isoCountry));
   };
-
-const getGlobal = () => async (dispatch) => {
-  const globalRes = await fetch(`https://corona.lmao.ninja/v2/all?yesterday`);
-  const globalData = await globalRes.json();
-
-  const globalObj = {
-    cases: globalData.cases,
-    casesPerMill: globalData.casesPerOneMillion,
-    deathsPerMill: globalData.deathsPerOneMillion,
-  };
-
-  dispatch({
-    type: "GLOBAL_STATS",
-    payload: globalObj,
-  });
-};
