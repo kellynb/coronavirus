@@ -3,9 +3,11 @@ import React from "react";
 // @Library
 import { Box, Typography } from "@material-ui/core";
 import Slider from "@material-ui/core/Slider";
+import useMediaQuery from "@material-ui/core/useMediaQuery";
+import { useTheme } from "@material-ui/core/styles";
 
 // @Helpers
-import { emojiLogic } from "../../helpers";
+import { emojiLogic, calculateComponentWidth } from "../../helpers";
 
 // @Static
 import { emojiScale, emojiShow } from "../../constants";
@@ -43,6 +45,10 @@ const marks = [
 ];
 
 const EmojiRange = (props) => {
+  const theme = useTheme();
+  const xsMatch = useMediaQuery(theme.breakpoints.down("xs"));
+  const smMatch = useMediaQuery(theme.breakpoints.down("sm"));
+
   const [value, setValue] = React.useState(
     emojiScale[emojiLogic(props.country, props.world)]
   );
@@ -54,7 +60,7 @@ const EmojiRange = (props) => {
   };
 
   return (
-    <Box width={props.width}>
+    <Box width={calculateComponentWidth(xsMatch, smMatch)}>
       <Slider
         value={value}
         step={25}

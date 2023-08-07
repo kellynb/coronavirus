@@ -64,3 +64,23 @@ export const emojiLogic = (currentCountry, worldData) => {
 
   return emojiImg;
 };
+
+export const calculateContainerWidth = (isBelowXSM, isBelowSM) => {
+  if (isBelowXSM) {
+    return 300
+  }
+  if (isBelowSM) {
+    return 350
+  }
+  return 500
+}
+
+export const calculateComponentWidth = (isBelowXSM, isBelowSM) => {
+  if (isBelowXSM) {
+    return 250
+  }
+  if (isBelowSM) {
+    return 350
+  }
+  return 400
+}

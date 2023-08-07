@@ -7,7 +7,7 @@ import { Box, Typography } from "@material-ui/core";
 import TwoDayCases from "./TwoDayTotal";
 import YearToDate from "./YearToDate";
 
-export default (props) => {
+export default () => {
   const [dateRangeStats, setDateRangeStats] = useState("year");
 
   const handleDateRange = (_e, rangeValue) => {
@@ -38,7 +38,7 @@ export default (props) => {
       </ToggleButtonGroup>
       <Box borderTop={1} mt={0.5} borderColor="secondary.main">
         {dateRangeStats === "year" ? (
-          <YearToDate width={props.width} />
+          <YearToDate />
         ) : (
           <TwoDayCases />
         )}

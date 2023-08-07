@@ -1,11 +1,22 @@
 import React from "react";
-import { useSelector } from "react-redux";
-
-import { Box, Typography } from "@material-ui/core";
-
+// @Components
 import Chart from "./chart";
 
-const YearToDate = (props) => {
+// @Helpers
+import { calculateComponentWidth } from '../../helpers';
+
+// @Libraries
+import { useSelector } from "react-redux";
+import useMediaQuery from "@material-ui/core/useMediaQuery";
+import { useTheme } from "@material-ui/core/styles";
+import { Box, Typography } from "@material-ui/core";
+
+
+const YearToDate = () => {
+  const theme = useTheme();
+  const xsMatch = useMediaQuery(theme.breakpoints.down("xs"));
+  const smMatch = useMediaQuery(theme.breakpoints.down("sm"));
+
   const currentCountry = useSelector((state) => state.currentLocation);
   const worldData = useSelector((state) => state.globalStats);
   const { name, virusToday } = currentCountry;
@@ -45,7 +56,7 @@ const YearToDate = (props) => {
             </Box>
           </Box>
           <Chart
-            width={props.width}
+            width={calculateComponentWidth(xsMatch, smMatch)}
             country={name}
             countryDeaths={virusToday.deathsPerOneMillion}
             globalDeaths={worldData.deathsPerMill}

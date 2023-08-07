@@ -1,16 +1,22 @@
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 
+// @Components
+import Emoji from "./Components/EmojiRange/emoji";
+import EmojiRange from "./Components/EmojiRange/emojiRange";
+import CountryStats from "./Components/CountryStats/CountryStats";
+
+// @Helpers
+import { calculateContainerWidth } from './helpers';
+
+// @Libraries
 import { Box, Grid, Container, Typography } from "@material-ui/core";
 import useMediaQuery from "@material-ui/core/useMediaQuery";
 import { useTheme } from "@material-ui/core/styles";
 
 import GoogleMapReact from "google-map-react";
 
-import Emoji from "./Components/EmojiRange/emoji";
-import EmojiRange from "./Components/EmojiRange/emojiRange";
-import CountryStats from "./Components/CountryStats/CountryStats";
-
+// @Redux
 import { initialData } from "./Redux/actions";
 import { findCountry } from "./Redux/actions";
 
@@ -22,6 +28,8 @@ function App() {
   const worldData = useSelector((state) => state.globalStats);
   const dispatch = useDispatch();
   const theme = useTheme();
+  const xsMatch = useMediaQuery(theme.breakpoints.down("xs"));
+  const smMatch = useMediaQuery(theme.breakpoints.down("sm"));
 
   const { name, lat, long, virusYesterday } = currentCountry;
 
@@ -32,13 +40,6 @@ function App() {
   const getMapChange = ({ lat, lng }) => {
     dispatch(findCountry({ lat, lng }));
   };
-
-  console.log(virusYesterday);
-
-  const xsMatch = useMediaQuery(theme.breakpoints.up("xs"));
-  const smMatch = useMediaQuery(theme.breakpoints.down("sm"));
-  const pWidth = smMatch ? (xsMatch ? 350 : 300) : 500;
-  const comWidth = smMatch ? (xsMatch ? 350 : 250) : 400;
 
   return (
     <Container>
@@ -73,7 +74,7 @@ function App() {
             </Box>
           )}
           <Box
-            width={pWidth}
+            width={calculateContainerWidth(xsMatch, smMatch)}
             display="flex"
             flexDirection="column"
             alignItems="center"
@@ -86,14 +87,13 @@ function App() {
             <Box mt={1} mb={4}>
               {virusYesterday && (
                 <EmojiRange
-                  width={comWidth}
                   country={currentCountry}
                   world={worldData}
                 />
               )}
             </Box>
             <Box align="center" mt={0.5} width={"auto"} mb={4}>
-              <CountryStats width={comWidth} />
+              <CountryStats />
             </Box>
           </Box>
         </Grid>
