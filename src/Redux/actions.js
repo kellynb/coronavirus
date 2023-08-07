@@ -40,7 +40,7 @@ export const initialData = () => async (dispatch) => {
     const finalCountryData = {
       country: user.country,
       virusToday: countryTodayData,
-      virusYes: countryYestedayData,
+      virusYesterday: countryYestedayData,
     };
 
     dispatch({

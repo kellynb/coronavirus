@@ -1,6 +1,6 @@
 export const emojiLogic = (currentCountry, worldData) => {
   let emojiImg = undefined;
-  const { virusToday, virusYes } = currentCountry;
+  const { virusToday, virusYesterday } = currentCountry;
 
   const country_to_world = (currentCountry, worldData) => {
     const worldChange = ((currentCountry - worldData) / worldData) * 100;
@@ -8,11 +8,11 @@ export const emojiLogic = (currentCountry, worldData) => {
     return findScore;
   };
 
-  const country_change = (virusToday, virusYes) => {
-    if (virusYes.todayDeaths) {
+  const country_change = (virusToday, virusYesterday) => {
+    if (virusYesterday.todayDeaths) {
       const deathChange =
-        ((virusToday.todayDeaths - virusYes.todayDeaths) /
-          virusYes.todayDeaths) *
+        ((virusToday.todayDeaths - virusYesterday.todayDeaths) /
+          virusYesterday.todayDeaths) *
         100;
       const findScore = score(deathChange);
       return findScore;
@@ -42,12 +42,12 @@ export const emojiLogic = (currentCountry, worldData) => {
     return score;
   };
 
-  if (virusYes) {
+  if (virusYesterday) {
     const getScore =
       country_to_world(
         virusToday.deathsPerOneMillion,
         worldData.deathsPerMill
-      ) + country_change(virusToday, virusYes);
+      ) + country_change(virusToday, virusYesterday);
 
     if (getScore < -2) {
       emojiImg = "deathFace";

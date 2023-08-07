@@ -1,4 +1,4 @@
-import React, { useEffect, useRef } from "react";
+import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 
 import { Box, Grid, Container, Typography } from "@material-ui/core";
@@ -21,7 +21,9 @@ function App() {
   const currentCountry = useSelector((state) => state.currentLocation);
   const worldData = useSelector((state) => state.globalStats);
   const dispatch = useDispatch();
-  const { name, lat, long, virusYes } = currentCountry;
+  const theme = useTheme();
+
+  const { name, lat, long, virusYesterday } = currentCountry;
 
   useEffect(() => {
     dispatch(initialData());
@@ -31,14 +33,8 @@ function App() {
     dispatch(findCountry({ lat, lng }));
   };
 
-  const prevVirusRef = useRef();
-  useEffect(() => {
-    prevVirusRef.current = virusYes;
-  });
+  console.log(virusYesterday);
 
-  const prevVirusYes = prevVirusRef.current;
-
-  const theme = useTheme();
   const xsMatch = useMediaQuery(theme.breakpoints.up("xs"));
   const smMatch = useMediaQuery(theme.breakpoints.down("sm"));
   const pWidth = smMatch ? (xsMatch ? 350 : 300) : 500;
@@ -64,7 +60,7 @@ function App() {
                 defaultZoom={4}
                 onClick={getMapChange}
               >
-                {prevVirusYes !== virusYes && (
+                {virusYesterday && (
                   <Emoji
                     size={35}
                     country={currentCountry}
@@ -88,7 +84,7 @@ function App() {
               </Typography>
             </Box>
             <Box mt={1} mb={4}>
-              {prevVirusYes !== virusYes && (
+              {virusYesterday && (
                 <EmojiRange
                   width={comWidth}
                   country={currentCountry}

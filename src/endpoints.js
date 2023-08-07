@@ -18,11 +18,10 @@ export const getUserLocation = async () => {
 export const getCountries = async () => {
   const response = await fetch(VirusEndpoints.countries);
   const countries = await response.json();
-
   return countries.reduce((countryObj, country) => {
-    countryObj[country.ISO2] = {
-      Slug: country.ISO2,
-      Name: country.Country,
+    countryObj[country.countryInfo.iso2] = {
+      iso2: country.countryInfo.iso2,
+      name: country.country,
     };
     return countryObj;
   }, {});

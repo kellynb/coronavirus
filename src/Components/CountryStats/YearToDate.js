@@ -8,7 +8,7 @@ import Chart from "./chart";
 const YearToDate = (props) => {
   const currentCountry = useSelector((state) => state.currentLocation);
   const worldData = useSelector((state) => state.globalStats);
-  const { virusToday } = currentCountry;
+  const { name, virusToday } = currentCountry;
 
   const updateNums = (num) =>
     num.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
@@ -46,7 +46,7 @@ const YearToDate = (props) => {
           </Box>
           <Chart
             width={props.width}
-            country={currentCountry.name}
+            country={name}
             countryDeaths={virusToday.deathsPerOneMillion}
             globalDeaths={worldData.deathsPerMill}
           />

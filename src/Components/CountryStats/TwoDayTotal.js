@@ -5,7 +5,7 @@ import { Box, Typography } from "@material-ui/core";
 
 const TwoDayTotal = () => {
   const currentCountry = useSelector((state) => state.currentLocation);
-  const { virusToday, virusYes } = currentCountry;
+  const { virusToday, virusYesterday } = currentCountry;
 
   const updateNums = (num) =>
     num.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
@@ -14,8 +14,8 @@ const TwoDayTotal = () => {
   let deaths = null;
 
   if (virusToday) {
-    cases = updateNums(virusToday.todayCases + virusYes.todayCases);
-    deaths = updateNums(virusToday.todayDeaths + virusYes.todayDeaths);
+    cases = updateNums(virusToday.todayCases + virusYesterday.todayCases);
+    deaths = updateNums(virusToday.todayDeaths + virusYesterday.todayDeaths);
   }
 
   return (
