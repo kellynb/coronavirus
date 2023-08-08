@@ -84,3 +84,11 @@ export const calculateComponentWidth = (isBelowXSM, isBelowSM) => {
   }
   return 400
 }
+
+export const updateLatitudeLongitudeValue = (number) => {
+  const numStr = number.toString();
+  const dotIndx = numStr.indexOf(".");
+  const finalStr = numStr.slice(0, dotIndx + 7);
+  const finalFlt = parseFloat(finalStr);
+  return finalFlt;
+};

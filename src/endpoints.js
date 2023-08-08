@@ -1,5 +1,6 @@
 const UserEndpoints = {
   location: "https://ipapi.co/json/",
+  geoLocation: (lat, long) => `https://geocode.maps.co/reverse?lat=${lat}&lon=${long}`
 };
 
 const VirusEndpoints = {
@@ -56,3 +57,19 @@ export const getYesterdayGlobalData = async () => {
     deathsPerMill: globalData.deathsPerOneMillion,
   };
 };
+
+export const getCountryLocation = async (lat, long) => {
+  const response = await fetch(
+    UserEndpoints.geoLocation(lat, long)
+  );
+   const data = await response.json();
+   
+   if ("error" in data) {
+    return "NO_COUNTRY_FOUND"
+   }
+   
+   return {
+    country_code: data.address.country_code,
+    country_name: data.address.country,
+   }
+}

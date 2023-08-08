@@ -38,7 +38,7 @@ function App() {
   }, []);
 
   const getMapChange = ({ lat, lng }) => {
-    dispatch(findCountry({ lat, lng }));
+    dispatch(findCountry( lat, lng ));
   };
 
   return (

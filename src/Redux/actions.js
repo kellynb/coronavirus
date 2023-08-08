@@ -2,8 +2,11 @@ import {
   getUserLocation,
   getCountries,
   getCountryData,
+  getCountryLocation,
   getYesterdayGlobalData,
 } from "../endpoints";
+
+import { updateLatitudeLongitudeValue } from '../helpers';
 
 export const initialData = () => async (dispatch) => {
   try {
@@ -62,40 +65,58 @@ export const initialData = () => async (dispatch) => {
 };
 
 export const findCountry =
-  ({ lat, lng }) =>
+  ( lat, lng ) =>
   async (dispatch) => {
-    // function to only have 6 spots past decimal poing
-    const updateLatLng = (ltLngNum) => {
-      const numStr = ltLngNum.toString();
-      const dotIndx = numStr.indexOf(".");
-      const finalStr = numStr.slice(0, dotIndx + 7);
-      const finalFlt = parseFloat(finalStr);
-      return finalFlt;
-    };
-    const geoRes = await fetch(
-      `/geocode/?lat=${updateLatLng(lat)}&long=${updateLatLng(lng)}`
-    );
-    const resData = await geoRes.json();
+   
+    try {
+      const updatedLat = updateLatitudeLongitudeValue(lat);
+      const updatedLong = updateLatitudeLongitudeValue(lng)
+      dispatch({ type: "IS_LOADING_GEO_DATA" });
 
-    // if a body of water break
-    if (resData.results[0].components["_type"] === "body_of_water") {
-      return;
+      const responseData = await getCountryLocation(updatedLat, updatedLong)
+      
+      if (responseData === 'NO_COUNTRY_FOUND') {
+        return dispatch({type: 'NO_COUNTRY_FOUND'})
+      }
+      
+      dispatch({
+        type: "CURRENT_LOCATION",
+        payload: {...responseData, latitude: updatedLat, longitude: updatedLong},
+      });
+
+      const countryTodayData = await getCountryData(responseData.country_code, false);
+
+      if (countryTodayData === "NO_COUNTRY_LOCATION") {
+        return dispatch({ type: "NO_COUNTRY_LOCATION" });
+      }
+
+      dispatch({
+        type: "LOCATION_TODAY_VIRUS",
+        payload: countryTodayData,
+      });
+
+      const countryYestedayData = await getCountryData(responseData.country_code, true);
+      if (countryTodayData === "NO_COUNTRY_LOCATION") {
+        return dispatch({ type: "NO_COUNTRY_LOCATION" });
+      }
+      dispatch({
+        type: "LOCATION_YEST_VIRUS",
+        payload: countryYestedayData,
+      });
+
+      const finalCountryData = {
+        country: responseData.country_name,
+        virusToday: countryTodayData,
+        virusYesterday: countryYestedayData,
+      };
+
+      dispatch({
+        type: "UPDATE_COUNTRY",
+        payload: finalCountryData,
+      });
+      return dispatch({ type: "HAS_LOADED_GEO_DATA" });
+    } catch  (e) {
+      console.log(e);
+      return dispatch({ type: "GEO_CODE_ERROR" });
     }
-    const isoCountry = resData.results[0].components["ISO_3166-1_alpha-2"];
-    const name = resData.results[0].components.country;
-
-    const payload = {
-      country_code: isoCountry,
-      country_name: name,
-      latitude: updateLatLng(lat),
-      longitude: updateLatLng(lng),
-    };
-
-    // update current location with new lat/lon/coutnry
-    dispatch({
-      type: "CURRENT_LOCATION",
-      payload: payload,
-    });
-    // // get country stats
-    // dispatch(getCountryVirusData(isoCountry));
   };
