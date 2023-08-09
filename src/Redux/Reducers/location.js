@@ -10,16 +10,10 @@ export default function (state = {}, action) {
         long: payload.longitude,
       };
     }
-    case "LOCATION_TODAY_VIRUS": {
+    case "COUNTRY_VIRUS_DATA": {
       return {
         ...state,
-        virusToday: action.payload,
-      };
-    }
-    case "LOCATION_YEST_VIRUS": {
-      return {
-        ...state,
-        virusYesterday: action.payload,
+        ...action.payload
       };
     }
     default:

@@ -1,6 +1,5 @@
 import {
   getUserLocation,
-  getCountries,
   getCountryData,
   getCountryLocation,
   getYesterdayGlobalData,
@@ -16,40 +15,29 @@ export const initialData = () => async (dispatch) => {
       type: "CURRENT_LOCATION",
       payload: user,
     });
-    const countries = await getCountries();
-    dispatch({
-      type: "ADD_COUNTRIES",
-      payload: countries,
-    });
+  
     const countryTodayData = await getCountryData(user.country, false);
 
     if (countryTodayData === "NO_COUNTRY_LOCATION") {
       return dispatch({ type: "NO_COUNTRY_LOCATION" });
     }
-    dispatch({
-      type: "LOCATION_TODAY_VIRUS",
-      payload: countryTodayData,
-    });
 
     const countryYestedayData = await getCountryData(user.country, true);
+
     if (countryTodayData === "NO_COUNTRY_LOCATION") {
       return dispatch({ type: "NO_COUNTRY_LOCATION" });
     }
-    dispatch({
-      type: "LOCATION_YEST_VIRUS",
-      payload: countryYestedayData,
-    });
 
-    const finalCountryData = {
-      country: user.country,
+    const virusData = {
       virusToday: countryTodayData,
       virusYesterday: countryYestedayData,
     };
 
     dispatch({
-      type: "UPDATE_COUNTRY",
-      payload: finalCountryData,
+      type: "COUNTRY_VIRUS_DATA",
+      payload: virusData,
     });
+
     const globalYesterdayData = await getYesterdayGlobalData();
 
     dispatch({
@@ -67,7 +55,6 @@ export const initialData = () => async (dispatch) => {
 export const findCountry =
   ( lat, lng ) =>
   async (dispatch) => {
-   
     try {
       const updatedLat = updateLatitudeLongitudeValue(lat);
       const updatedLong = updateLatitudeLongitudeValue(lng)
@@ -90,30 +77,21 @@ export const findCountry =
         return dispatch({ type: "NO_COUNTRY_LOCATION" });
       }
 
-      dispatch({
-        type: "LOCATION_TODAY_VIRUS",
-        payload: countryTodayData,
-      });
-
       const countryYestedayData = await getCountryData(responseData.country_code, true);
       if (countryTodayData === "NO_COUNTRY_LOCATION") {
         return dispatch({ type: "NO_COUNTRY_LOCATION" });
       }
-      dispatch({
-        type: "LOCATION_YEST_VIRUS",
-        payload: countryYestedayData,
-      });
 
-      const finalCountryData = {
-        country: responseData.country_name,
+      const virusData = {
         virusToday: countryTodayData,
         virusYesterday: countryYestedayData,
       };
-
+  
       dispatch({
-        type: "UPDATE_COUNTRY",
-        payload: finalCountryData,
+        type: "COUNTRY_VIRUS_DATA",
+        payload: virusData,
       });
+      
       return dispatch({ type: "HAS_LOADED_GEO_DATA" });
     } catch  (e) {
       console.log(e);
