@@ -1,6 +1,10 @@
 import React from "react";
-import { emojiShow } from "../../constants";
+
+// @Helpers
 import { emojiLogic } from "../../helpers";
+
+// @Static
+import { emojiShow } from "../../constants";
 
 const Emoji = ({ country, world, size }) => {
   const emojiImage = emojiShow[emojiLogic(country, world)];

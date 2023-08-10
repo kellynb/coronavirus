@@ -1,6 +1,7 @@
 import React from "react";
 import { useSelector } from "react-redux";
 
+// @Libraries
 import { Box, Typography } from "@material-ui/core";
 
 const TwoDayTotal = () => {
@@ -10,6 +11,7 @@ const TwoDayTotal = () => {
   const updateNums = (num) =>
     num.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
 
+  // Start here tomorrow
   let cases = null;
   let deaths = null;
 

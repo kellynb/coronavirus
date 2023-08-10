@@ -1,7 +1,8 @@
 import React from "react";
-import { ResponsiveBar } from "@nivo/bar";
 
+// @Libraries
 import { Box, Typography } from "@material-ui/core";
+import { ResponsiveBar } from "@nivo/bar";
 
 const BarChart = (props) => {
   return (

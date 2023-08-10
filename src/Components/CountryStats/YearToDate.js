@@ -1,4 +1,5 @@
 import React from "react";
+
 // @Components
 import Chart from "./chart";
 
@@ -21,6 +22,7 @@ const YearToDate = () => {
   const worldData = useSelector((state) => state.globalStats);
   const { name, virusToday } = currentCountry;
 
+  // Refactor this as well
   const updateNums = (num) =>
     num.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
   let cases = null;

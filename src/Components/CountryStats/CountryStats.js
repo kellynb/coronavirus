@@ -1,11 +1,13 @@
 import React, { useState } from "react";
 
+// @Components
+import TwoDayCases from "./TwoDayTotal";
+import YearToDate from "./YearToDate";
+
+// @Libraries
 import ToggleButton from "@material-ui/lab/ToggleButton";
 import ToggleButtonGroup from "@material-ui/lab/ToggleButtonGroup";
 import { Box, Typography } from "@material-ui/core";
-
-import TwoDayCases from "./TwoDayTotal";
-import YearToDate from "./YearToDate";
 
 export default () => {
   const [dateRangeStats, setDateRangeStats] = useState("year");

@@ -19,3 +19,31 @@ export const emojiScale = {
   smileFace: 75,
   heartFace: 100,
 };
+
+export const emojiOptions = [
+  {
+    value: 0,
+    label: 'The Worst',
+    emoji: deathFace
+  },
+  {
+    value: 25,
+    label: "Bad",
+    emoji: oozyFace
+  },
+  {
+    value: 50,
+    label: "Steady",
+    emoji: neutralFace
+  },
+  {
+    value: 75,
+    label: "Good",
+    emoji: smileFace
+  },
+  {
+    value: 100,
+    label: "Party",
+    emoji: heartFace
+  },
+];

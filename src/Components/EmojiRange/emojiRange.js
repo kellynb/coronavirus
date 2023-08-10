@@ -10,9 +10,9 @@ import { useTheme } from "@material-ui/core/styles";
 import { emojiLogic, calculateComponentWidth } from "../../helpers";
 
 // @Static
-import { emojiScale, emojiShow } from "../../constants";
+import { emojiScale, emojiOptions } from "../../constants";
 
-const contentDiv = (emoji, text) => {
+const renderLabel = (emoji, text) => {
   return (
     <div>
       <img src={emoji} width={30} height={30} alt="emoji"></img>
@@ -20,29 +20,6 @@ const contentDiv = (emoji, text) => {
     </div>
   );
 };
-
-const marks = [
-  {
-    value: 0,
-    label: contentDiv(emojiShow["deathFace"], "The Worst"),
-  },
-  {
-    value: 25,
-    label: contentDiv(emojiShow["oozyFace"], "Bad"),
-  },
-  {
-    value: 50,
-    label: contentDiv(emojiShow["neutralFace"], "Steady"),
-  },
-  {
-    value: 75,
-    label: contentDiv(emojiShow["smileFace"], "Good"),
-  },
-  {
-    value: 100,
-    label: contentDiv(emojiShow["heartFace"], "Party"),
-  },
-];
 
 const EmojiRange = (props) => {
   const theme = useTheme();
@@ -65,7 +42,9 @@ const EmojiRange = (props) => {
         value={value}
         step={25}
         valueLabelDisplay="off"
-        marks={marks}
+        marks={emojiOptions.map(({value, label, emoji}) => (
+            {value, label: renderLabel(emoji, label) }
+          ))}
         track={false}
         color="primary"
         onChange={handleChange}
