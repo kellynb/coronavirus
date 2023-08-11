@@ -47,6 +47,14 @@ const theme = createTheme({
         },
       },
     },
+    MuiSlider: {
+      root: {
+        '&.MuiSlider-marked': {
+          '&:hover': {
+          cursor: 'default'
+        }}
+      }
+    }
   },
 });
 
