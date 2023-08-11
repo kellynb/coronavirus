@@ -16,7 +16,7 @@ const renderLabel = (emoji, text) => {
   return (
     <div>
       <img src={emoji} width={30} height={30} alt="emoji"></img>
-      <Typography ariant="body2">{text}</Typography>
+      <Typography variant="body2">{text}</Typography>
     </div>
   );
 };
@@ -26,20 +26,10 @@ const EmojiRange = (props) => {
   const xsMatch = useMediaQuery(theme.breakpoints.down("xs"));
   const smMatch = useMediaQuery(theme.breakpoints.down("sm"));
 
-  const [value, setValue] = React.useState(
-    emojiScale[emojiLogic(props.country, props.world)]
-  );
-
-  const handleChange = (event, newValue) => {
-    if (newValue === emojiScale[emojiLogic(props.country, props.world)]) {
-      setValue(newValue);
-    }
-  };
-
   return (
     <Box width={calculateComponentWidth(xsMatch, smMatch)}>
       <Slider
-        value={value}
+        value={emojiScale[emojiLogic(props.country, props.world)]}
         step={25}
         valueLabelDisplay="off"
         marks={emojiOptions.map(({value, label, emoji}) => (
@@ -47,7 +37,6 @@ const EmojiRange = (props) => {
           ))}
         track={false}
         color="primary"
-        onChange={handleChange}
       />
     </Box>
   );
