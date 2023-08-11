@@ -51,7 +51,7 @@ const theme = createTheme({
       root: {
         '&.MuiSlider-marked': {
           '&:hover': {
-          cursor: 'default'
+            cursor: 'default'
         }}
       }
     }
