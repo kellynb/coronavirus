@@ -92,3 +92,6 @@ export const updateLatitudeLongitudeValue = (number) => {
   const finalFlt = parseFloat(finalStr);
   return finalFlt;
 };
+
+export const updateNums = (num) =>
+  num.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");

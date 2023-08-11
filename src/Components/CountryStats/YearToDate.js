@@ -4,7 +4,7 @@ import React from "react";
 import Chart from "./chart";
 
 // @Helpers
-import { calculateComponentWidth } from '../../helpers';
+import { calculateComponentWidth, updateNums } from '../../helpers';
 
 // @Libraries
 import { useSelector } from "react-redux";
@@ -22,17 +22,6 @@ const YearToDate = () => {
   const worldData = useSelector((state) => state.globalStats);
   const { name, virusToday } = currentCountry;
 
-  // Refactor this as well
-  const updateNums = (num) =>
-    num.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
-  let cases = null;
-  let deaths = null;
-
-  if (virusToday) {
-    cases = updateNums(virusToday.cases);
-    deaths = updateNums(virusToday.deaths);
-  }
-
   return (
     <div>
       {virusToday && (
@@ -44,7 +33,7 @@ const YearToDate = () => {
                   Total Cases
                 </Typography>
                 <Typography variant="body1" align="center">
-                  {cases}
+                  {updateNums(virusToday.cases)}
                 </Typography>
               </Box>
               <Box flexGrow={1}>
@@ -52,8 +41,8 @@ const YearToDate = () => {
                   Total Deaths
                 </Typography>
                 <Typography variant="body1" align="center">
-                  {deaths}
-                </Typography>
+                  {updateNums(virusToday.deaths)}
+                </Typography> 
               </Box>
             </Box>
           </Box>

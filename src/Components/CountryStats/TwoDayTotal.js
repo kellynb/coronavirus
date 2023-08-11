@@ -1,24 +1,15 @@
 import React from "react";
 import { useSelector } from "react-redux";
 
+// @Helpers
+import { updateNums } from '../../helpers';
+
 // @Libraries
 import { Box, Typography } from "@material-ui/core";
 
 const TwoDayTotal = () => {
   const currentCountry = useSelector((state) => state.currentLocation);
   const { virusToday, virusYesterday } = currentCountry;
-
-  const updateNums = (num) =>
-    num.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
-
-  // Start here tomorrow
-  let cases = null;
-  let deaths = null;
-
-  if (virusToday) {
-    cases = updateNums(virusToday.todayCases + virusYesterday.todayCases);
-    deaths = updateNums(virusToday.todayDeaths + virusYesterday.todayDeaths);
-  }
 
   return (
     <div>
@@ -32,7 +23,7 @@ const TwoDayTotal = () => {
                   New Cases
                 </Typography>
                 <Typography variant="body1" align="center">
-                  {cases}
+                  {updateNums(virusToday.todayCases + virusYesterday.todayCases)}
                 </Typography>
               </Box>
               <Box flexGrow={1}>
@@ -40,7 +31,7 @@ const TwoDayTotal = () => {
                   Deaths
                 </Typography>
                 <Typography variant="body1" align="center">
-                  {deaths}
+                  {updateNums(virusToday.todayDeaths + virusYesterday.todayDeaths)}
                 </Typography>
               </Box>
             </Box>
