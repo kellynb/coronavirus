@@ -1,5 +1,4 @@
 import React from "react";
-import { useSelector } from "react-redux";
 
 // @Library
 import { Box, Typography } from "@material-ui/core";
@@ -23,7 +22,6 @@ const renderLabel = (emoji, text) => {
 };
 
 const EmojiRange = ({country, world}) => {
-  const { isLoadingLocationData } = useSelector((state) => state.loading);
 
   const theme = useTheme();
   const xsMatch = useMediaQuery(theme.breakpoints.down("xs"));
@@ -32,7 +30,7 @@ const EmojiRange = ({country, world}) => {
   return (
     <Box width={calculateComponentWidth(xsMatch, smMatch)}>
       <Slider
-        value={!isLoadingLocationData ? emojiScale[emojiLogic(country, world)] : undefined}
+        value={emojiScale[emojiLogic(country, world)]}
         step={25}
         valueLabelDisplay="off"
         marks={emojiOptions.map(({value, label, emoji}) => (

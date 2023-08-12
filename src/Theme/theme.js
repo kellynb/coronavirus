@@ -1,17 +1,19 @@
 import { createTheme } from "@material-ui/core/styles";
 
-const theme = createTheme({
-  palette: {
-    primary: {
-      main: "#03a9f4",
-    },
-    secondary: {
-      main: "#e0e0e0",
-    },
-    error: {
-      main: '#e53935'
-    }
+const colorPallete = {
+  primary: {
+    main: "#03a9f4",
   },
+  secondary: {
+    main: "#e0e0e0",
+  },
+  error: {
+    main: '#e53935'
+  }
+}
+
+const theme = createTheme({
+  palette: colorPallete,
   breakpoints: {
     values: {
       xs: 450,
@@ -39,14 +41,14 @@ const theme = createTheme({
         color: "black",
         "&$selected": {
           color: "black",
-          backgroundColor: "#03a9f4",
-          border: "solid 1px #03a9f4",
+          backgroundColor: colorPallete.primary.main,
+          border: `solid 1px ${colorPallete.primary.main}`,
         },
         "&:hover": {
           backgroundColor: "white",
         },
         "&$selected&:hover": {
-          backgroundColor: "#03a9f4",
+          backgroundColor: colorPallete.primary.main,
         },
       },
     },

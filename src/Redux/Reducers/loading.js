@@ -19,6 +19,9 @@ export default function(state = initialState, action) {
       case 'HAS_LOADED_GEO_DATA': {
         return {...state, isLoadingLocationData: false}
       }
+      case "NO_COUNTRY_DATA": {
+        return initialState
+      }
       case "APP_ERROR" : {
         return {...state, hasAppError: true}
       }

@@ -39,6 +39,7 @@ function App() {
 
   useEffect(() => {
     dispatch(initialData());
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   const getMapChange = ({ lat, lng }) => {
@@ -79,7 +80,7 @@ function App() {
         ) : 
         (<Grid container direction="row" justifyContent="space-around" my={2}>
           <Box width={600} height={550}  mb={2}>
-            {isInitialLoading && <Skeleton width='100%' height='100%' animation="wave" variant="rectangular" />}
+            {isInitialLoading && <Skeleton width='100%' height='100%' animation="wave" variant="rect" />}
             {!isInitialLoading && typeof lat == "number" &&  (
             <GoogleMapReact
               bootstrapURLKeys={{ key: process.env.REACT_APP_MAP }}
@@ -105,10 +106,9 @@ function App() {
             flexDirection="column"
             alignItems="center"
           >
-            {isInitialLoading && (<Skeleton width='100%' height={550} animation="wave" variant="rectangular" />)}
+            {isInitialLoading && (<Skeleton width='100%' height={550} animation="wave" variant="rect" />)}
             {!isInitialLoading && (
               <div>
-                  
                 <Box display="flex" justifyContent="center">
                   <Typography variant="h4">
                     Country:
@@ -127,7 +127,6 @@ function App() {
                 <Box align="center" mt={0.5} width={"auto"} mb={4}>
                   <CountryStats />
                 </Box>
-
               </div>
             )}
           </Box>

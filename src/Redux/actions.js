@@ -19,13 +19,13 @@ export const initialData = () => async (dispatch) => {
     const countryTodayData = await getCountryData(user.country, false);
 
     if (countryTodayData === "NO_COUNTRY_LOCATION") {
-      return dispatch({ type: "NO_COUNTRY_LOCATION" });
+      return dispatch({ type: "NO_COUNTRY_DATA" })
     }
 
     const countryYestedayData = await getCountryData(user.country, true);
 
     if (countryTodayData === "NO_COUNTRY_LOCATION") {
-      return dispatch({ type: "NO_COUNTRY_LOCATION" });
+      return dispatch({ type: "NO_COUNTRY_DATA" })
     }
 
     const virusData = {
@@ -64,7 +64,7 @@ export const findCountry =
       const responseData = await getCountryLocation(updatedLat, updatedLong)
       
       if (responseData === 'NO_COUNTRY_FOUND') {
-        return dispatch({type: 'NO_COUNTRY_FOUND'})
+        return dispatch({ type: "NO_COUNTRY_DATA" })
       }
       
       dispatch({
@@ -75,12 +75,12 @@ export const findCountry =
       const countryTodayData = await getCountryData(responseData.country_code, false);
 
       if (countryTodayData === "NO_COUNTRY_LOCATION") {
-        return dispatch({ type: "NO_COUNTRY_LOCATION" });
+        return dispatch({ type: "NO_COUNTRY_DATA" })
       }
 
       const countryYestedayData = await getCountryData(responseData.country_code, true);
       if (countryTodayData === "NO_COUNTRY_LOCATION") {
-        return dispatch({ type: "NO_COUNTRY_LOCATION" });
+        return dispatch({ type: "NO_COUNTRY_DATA" });
       }
 
       const virusData = {
