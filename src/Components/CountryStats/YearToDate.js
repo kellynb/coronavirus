@@ -1,7 +1,7 @@
 import React from "react";
 
 // @Components
-import Chart from "./chart";
+import CovidDeathChart from "./CovidDeathChart";
 
 // @Helpers
 import { calculateComponentWidth, updateNums } from '../../helpers';
@@ -46,7 +46,7 @@ const YearToDate = () => {
               </Box>
             </Box>
           </Box>
-          <Chart
+          <CovidDeathChart
             width={calculateComponentWidth(xsMatch, smMatch)}
             country={name}
             countryDeaths={virusToday.deathsPerOneMillion}

@@ -1,12 +1,17 @@
 import React from "react";
 
+// @Hooks
+import { useTheme } from "@material-ui/core/styles";
+
 // @Libraries
 import { Box, Typography } from "@material-ui/core";
 import { ResponsiveBar } from "@nivo/bar";
 
-const BarChart = (props) => {
+const CovidDeathChart = ({ country, countryDeaths, globalDeaths, width}) => {
+  const theme = useTheme();
+
   return (
-    <Box mt={1} height={200} width={props.width}>
+    <Box mt={1} height={200} width={width}>
       <Box>
         <Typography variant="body1" align="center">
           Deaths per Million
@@ -18,48 +23,33 @@ const BarChart = (props) => {
       <ResponsiveBar
         data={[
           {
-            place: props.country,
-            "Deaths Country": props.countryDeaths,
+            place: country,
+            "Deaths Country": countryDeaths,
           },
           {
             place: "World",
-            "Deaths World": props.globalDeaths,
+            "Deaths World": globalDeaths,
           },
         ]}
         keys={["Deaths Country", "Deaths World"]}
         indexBy="place"
         margin={{ top: 20, right: 70, bottom: 10, left: 70 }}
-        colors={["#03a9f4", "#e0e0e0"]}
+        colors={[theme.palette.primary.main, theme.palette.secondary.main]}
         pixelRatio={1}
         padding={0.5}
         layout="horizontal"
-        reverse={false}
         borderWidth={1}
         borderRadius={2}
         borderColor={{ from: "color", modifiers: [["darker", 1.6]] }}
-        axisTop={
-          props.width >= 350
-            ? {
-                tickSize: 0,
-                tickPadding: 5,
-                tickRotation: 0,
-                tickValues: [50, 200, 400, 600],
-              }
-            : null
-        }
-        axisRight={null}
-        axisBottom={null}
         axisLeft={{ tickSize: 0, tickPadding: 10, tickRotation: 45 }}
-        enableGridX={true}
-        enableGridY={false}
-        enableLabel={true}
+        enableGridX
+        enableLabel
         labelSkipWidth={1}
         labelSkipHeight={1}
         labelTextColor={{ from: "color", modifiers: [["darker", 1.6]] }}
-        isInteractive={false}
       />
     </Box>
   );
 };
 
-export default BarChart;
+export default CovidDeathChart;

@@ -59,6 +59,7 @@ export const findCountry =
       const updatedLat = updateLatitudeLongitudeValue(lat);
       const updatedLong = updateLatitudeLongitudeValue(lng)
       dispatch({ type: "IS_LOADING_GEO_DATA" });
+      dispatch({ type: 'RESET_LOCATION_ERROR'});
 
       const responseData = await getCountryLocation(updatedLat, updatedLong)
       
