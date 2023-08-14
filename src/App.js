@@ -42,7 +42,7 @@ function App() {
   // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
-  const getMapChange = ({ lat, lng }) => {
+  const onMapChange = ({ lat, lng }) => {
     dispatch(findCountry( lat, lng ));
   };
 
@@ -82,22 +82,25 @@ function App() {
           <Box width={600} height={550}  mb={2}>
             {isInitialLoading && <Skeleton width='100%' height='100%' animation="wave" variant="rect" />}
             {!isInitialLoading && typeof lat == "number" &&  (
-            <GoogleMapReact
-              bootstrapURLKeys={{ key: process.env.REACT_APP_MAP }}
-              defaultCenter={{ lat: lat, lng: long }}
-              defaultZoom={4}
-              onClick={getMapChange}
-            >
-              {virusYesterday && (
-                <Emoji
-                  size={35}
-                  country={currentCountry}
-                  world={worldData}
-                  lat={lat}
-                  lng={long}
-                />
-              )}
-            </GoogleMapReact> )}
+              <GoogleMapReact
+                bootstrapURLKeys={{ key: process.env.REACT_APP_MAP }}
+                defaultCenter={{ lat, lng: long }}
+                defaultZoom={4}
+                onClick={onMapChange}
+              >
+                <Box lat={lat} lng={long}>
+                  {isLoadingLocationData && (
+                    <CircularProgress size={35}/>)}
+                  {!isLoadingLocationData && virusYesterday && (
+                    <Emoji
+                      size={35}
+                      country={currentCountry}
+                      world={worldData}
+                    />
+                  )}
+                </Box>
+              </GoogleMapReact> 
+            )}
           </Box>
           
           <Box
