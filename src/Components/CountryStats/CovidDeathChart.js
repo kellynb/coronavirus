@@ -7,6 +7,17 @@ import { useTheme } from "@material-ui/core/styles";
 import { Box, Typography } from "@material-ui/core";
 import { ResponsiveBar } from "@nivo/bar";
 
+const Tooltip = ({ value, color, indexValue, muiTheme, ...rest}) => {
+  const bgColor = indexValue === 'World' ? muiTheme.palette.secondary.dark : muiTheme.palette.primary.light
+
+  return(
+    <Box bgcolor={bgColor} m='-10px' p={0.5} display="flex" flexDirection="column">
+      <Typography variant="caption" >{indexValue} </Typography>
+      <Typography variant="caption" >{value} Deaths/Million</Typography>
+    </Box>
+  )
+}
+
 const CovidDeathChart = ({ country, countryDeaths, globalDeaths, width}) => {
   const theme = useTheme();
 
@@ -42,11 +53,16 @@ const CovidDeathChart = ({ country, countryDeaths, globalDeaths, width}) => {
         borderRadius={2}
         borderColor={{ from: "color", modifiers: [["darker", 1.6]] }}
         axisLeft={{ tickSize: 0, tickPadding: 10, tickRotation: 45 }}
+        axisBottom={null}
+        axisRight={null}
+        axisTop={null}
         enableGridX
+        enableGridY={false}
         enableLabel
         labelSkipWidth={1}
         labelSkipHeight={1}
         labelTextColor={{ from: "color", modifiers: [["darker", 1.6]] }}
+        tooltip={(props) => <Tooltip muiTheme={theme} {...props}/>}
       />
     </Box>
   );

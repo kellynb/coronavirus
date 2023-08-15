@@ -3,9 +3,11 @@ import { createTheme } from "@material-ui/core/styles";
 const colorPallete = {
   primary: {
     main: "#03a9f4",
+    light: "#b3e5fc",
   },
   secondary: {
     main: "#e0e0e0",
+    dark: "#bdbdbd",
   },
   error: {
     main: '#e53935'
