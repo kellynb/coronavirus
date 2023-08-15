@@ -23,27 +23,27 @@ export const emojiScale = {
 export const emojiOptions = [
   {
     value: 0,
-    label: 'The Worst',
+    label: 'The Plague',
     emoji: deathFace
   },
   {
     value: 25,
-    label: "Bad",
+    label: "Big Risk",
     emoji: oozyFace
   },
   {
     value: 50,
-    label: "Steady",
+    label: "Livable",
     emoji: neutralFace
   },
   {
     value: 75,
-    label: "Good",
+    label: "Self Party",
     emoji: smileFace
   },
   {
     value: 100,
-    label: "Party",
+    label: "Block Party",
     emoji: heartFace
   },
 ];

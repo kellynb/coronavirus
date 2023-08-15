@@ -22,9 +22,6 @@ import GoogleMapReact from "google-map-react";
 import { initialData } from "./Redux/actions";
 import { findCountry } from "./Redux/actions";
 
-// @Styles
-import "./App.css";
-
 function App() {
   const currentCountry = useSelector((state) => state.currentLocation);
   const worldData = useSelector((state) => state.globalStats);
