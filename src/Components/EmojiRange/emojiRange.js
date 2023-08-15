@@ -14,10 +14,10 @@ import { emojiScale, emojiOptions } from "../../constants";
 
 const renderLabel = (emoji, text) => {
   return (
-    <div>
+    <Box textAlign='center'>
       <img src={emoji} width={30} height={30} alt="emoji"></img>
       <Typography variant="body2">{text}</Typography>
-    </div>
+    </Box>
   );
 };
 
@@ -28,7 +28,7 @@ const EmojiRange = ({country, world}) => {
   const smMatch = useMediaQuery(theme.breakpoints.down("sm"));
 
   return (
-    <Box width={calculateComponentWidth(xsMatch, smMatch)}>
+    <Box width={calculateComponentWidth(xsMatch, smMatch)} textAlign='center'>
       <Slider
         value={emojiScale[emojiLogic(country, world)]}
         step={25}
