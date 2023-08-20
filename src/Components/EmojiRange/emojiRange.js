@@ -13,34 +13,34 @@ import { emojiLogic, calculateComponentWidth } from "../../helpers";
 import { emojiScale, emojiOptions } from "../../constants";
 
 const renderLabel = (emoji, text) => {
-  return (
-    <Box textAlign='center'>
-      <img src={emoji} width={30} height={30} alt="emoji"></img>
-      <Typography variant="body2">{text}</Typography>
-    </Box>
-  );
+	return (
+		<Box textAlign="center">
+			<img src={emoji} width={30} height={30} alt="emoji"></img>
+			<Typography variant="body2">{text}</Typography>
+		</Box>
+	);
 };
 
-const EmojiRange = ({country, world}) => {
+const EmojiRange = ({ country, world }) => {
+	const theme = useTheme();
+	const xsMatch = useMediaQuery(theme.breakpoints.down("xs"));
+	const smMatch = useMediaQuery(theme.breakpoints.down("sm"));
 
-  const theme = useTheme();
-  const xsMatch = useMediaQuery(theme.breakpoints.down("xs"));
-  const smMatch = useMediaQuery(theme.breakpoints.down("sm"));
-
-  return (
-    <Box width={calculateComponentWidth(xsMatch, smMatch)} textAlign='center'>
-      <Slider
-        value={emojiScale[emojiLogic(country, world)]}
-        step={25}
-        valueLabelDisplay="off"
-        marks={emojiOptions.map(({value, label, emoji}) => (
-            {value, label: renderLabel(emoji, label) }
-          ))}
-        track={false}
-        color="primary"
-      />
-    </Box>
-  );
+	return (
+		<Box width={calculateComponentWidth(xsMatch, smMatch)} textAlign="center">
+			<Slider
+				value={emojiScale[emojiLogic(country, world)]}
+				step={25}
+				valueLabelDisplay="off"
+				marks={emojiOptions.map(({ value, label, emoji }) => ({
+					value,
+					label: renderLabel(emoji, label),
+				}))}
+				track={false}
+				color="primary"
+			/>
+		</Box>
+	);
 };
 
 export default EmojiRange;
