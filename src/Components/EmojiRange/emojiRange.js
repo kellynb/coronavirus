@@ -27,7 +27,10 @@ const EmojiRange = ({ country, world }) => {
 	const smMatch = useMediaQuery(theme.breakpoints.down("sm"));
 
 	return (
-		<Box width={calculateComponentWidth(xsMatch, smMatch)} textAlign="center">
+		<Box
+			minWidth={calculateComponentWidth(xsMatch, smMatch)}
+			textAlign="center"
+		>
 			<Slider
 				value={emojiScale[emojiLogic(country, world)]}
 				step={25}
