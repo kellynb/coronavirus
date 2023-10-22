@@ -17,7 +17,9 @@ export const getUserLocation = async () => {
 };
 
 export const getCountryData = async (country, isYesterday) => {
-	const data = await fetch(VirusEndpoints.countryTotal(country, isYesterday));
+	const data = await fetch(VirusEndpoints.countryTotal(country, isYesterday), {
+		mode: "no-cors",
+	});
 	const countryCovidData = await data.json();
 
 	if ("message" in countryCovidData) {
@@ -36,7 +38,9 @@ export const getCountryData = async (country, isYesterday) => {
 };
 
 export const getYesterdayGlobalData = async () => {
-	const globalResponse = await fetch(VirusEndpoints.yesterdayCountries);
+	const globalResponse = await fetch(VirusEndpoints.yesterdayCountries, {
+		mode: "no-cors",
+	});
 	const globalData = await globalResponse.json();
 
 	return {
